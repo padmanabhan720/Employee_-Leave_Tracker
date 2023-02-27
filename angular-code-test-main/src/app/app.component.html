@@ -1,0 +1,80 @@
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Employee Type</th>
+        <th>No. of Days</th>
+        <th>No. of Vocation</th>
+        <th>Update Days</th>
+        <th>Update Vocation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employeeList">
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.employeeType }}</td>
+        <td>{{ employee.numberOfDaysWork }}</td>
+        <td>{{ employee.numberOfVacation }}</td>
+        <td><button (click)="handleShowWork(employee)">Update</button></td>
+        <td><button (click)="handleShowVocation(employee)">Update</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div #workModal class="modal">
+    <div class="content">
+      <h3>Work Modal</h3>
+      <form class="login-form" (ngSubmit)="submitWork()">
+        <div>
+          <label>Please Enter Your Work</label>
+          <input
+            type="number"
+            name="workInput"
+            [(ngModel)]="workInput"
+            min="0"
+            max="260"
+          />
+        </div>
+        <div style="text-align: end">
+          <button type="button" class="mx-1" (click)="handleHideWork()">Close</button>
+          <button type="submit" [disabled]="!workInput" class="mx-1">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div #vocationModal class="modal">
+    <div class="content">
+      <h3>Vocation Modal</h3>
+      <form class="login-form" (ngSubmit)="submitVocation()">
+        <div>
+          <label>Please Enter Your Vocation</label>
+          <input
+            type="number"
+            name="vocationInput"
+            [(ngModel)]="vocationInput"
+            min="0"
+            max="260"
+          />
+        </div>
+        <div style="text-align: end">
+          <button type="button" class="mx-1" (click)="handleHideVocation()">Close</button>
+          <button type="submit" [disabled]="!vocationInput" class="mx-1">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--toast.component.html-->
+<div *ngIf="showsToast" class="toast-class">
+  <div style="max-width: 160px">
+    {{ toastMessage }}
+  </div>
+  <!--button-->
+  <a class="close-btn" (click)="showsToast = !showsToast">
+    <small> Dismiss </small>
+  </a>
+</div>
+
+<router-outlet></router-outlet>
